@@ -38,7 +38,7 @@ export function Sidebar({ profile }: Props) {
   }
 
   return (
-    <aside className="hidden md:flex flex-col w-64 min-h-screen bg-white border-r border-stone-200 dark:bg-stone-900 dark:border-stone-800">
+    <aside className="hidden md:flex flex-col w-64 h-screen sticky top-0 overflow-y-auto bg-white border-r border-stone-200 dark:bg-stone-900 dark:border-stone-800">
       <div className="p-6 border-b border-stone-100 dark:border-stone-800">
         <Link href="/dashboard" className="flex items-center gap-2">
           <span className="text-2xl">🐾</span>

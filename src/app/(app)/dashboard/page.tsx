@@ -49,14 +49,22 @@ export default async function DashboardPage() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-stone-900 dark:text-white">
-          Zdravo, {profile?.full_name?.split(" ")[0] ?? "Korisniče"}! 👋
-        </h1>
-        <p className="text-stone-500 mt-1">
-          {profile?.city && `${profile.city} · `}
-          {profile?.is_premium ? "✨ Premium nalog" : "Besplatan nalog"}
-        </p>
+      <div className="flex items-center gap-4">
+        <Avatar className="h-14 w-14 shrink-0">
+          <AvatarImage src={profile?.avatar_url ?? ""} />
+          <AvatarFallback className="text-lg bg-amber-100 text-amber-700">
+            {getInitials(profile?.full_name ?? profile?.email ?? "?")}
+          </AvatarFallback>
+        </Avatar>
+        <div>
+          <h1 className="text-2xl font-bold text-stone-900 dark:text-white">
+            Zdravo, {profile?.full_name?.split(" ")[0] ?? "Korisniče"}!
+          </h1>
+          <p className="text-stone-500 mt-0.5 text-sm">
+            {profile?.city && `${profile.city} · `}
+            {profile?.is_premium ? "✨ Premium nalog" : "Besplatan nalog"}
+          </p>
+        </div>
       </div>
 
       {/* Quick Actions */}
@@ -132,14 +140,12 @@ export default async function DashboardPage() {
               )
             })}
             <Link href="/profile">
-              <Card className="hover:shadow-md transition-shadow cursor-pointer border-dashed">
-                <div className="aspect-square flex items-center justify-center rounded-t-xl">
-                  <div className="text-center p-4">
-                    <Plus className="h-8 w-8 text-stone-300 mx-auto mb-2" />
-                    <span className="text-xs text-stone-400">Dodaj ljubimca</span>
-                  </div>
+              <div className="aspect-square flex items-center justify-center rounded-xl border border-dashed border-stone-300 dark:border-stone-700 hover:border-amber-400 hover:bg-amber-50 dark:hover:bg-stone-800 transition-colors cursor-pointer">
+                <div className="text-center">
+                  <Plus className="h-5 w-5 text-stone-400 mx-auto mb-1" />
+                  <span className="text-xs text-stone-400">Dodaj</span>
                 </div>
-              </Card>
+              </div>
             </Link>
           </div>
         )}

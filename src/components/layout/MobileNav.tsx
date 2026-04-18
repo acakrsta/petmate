@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutDashboard, Heart, MessageCircle, Map, Truck } from "lucide-react"
+import { LayoutDashboard, Heart, MessageCircle, Map, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { useUnreadCount } from "@/hooks/useRealtime"
@@ -11,7 +11,7 @@ const navItems = [
   { href: "/discover", label: "Otkrijte", icon: Heart },
   { href: "/chat", label: "Čet", icon: MessageCircle },
   { href: "/map/parks", label: "Mapa", icon: Map },
-  { href: "/transport", label: "Prevoz", icon: Truck },
+  { href: "/profile", label: "Profil", icon: User },
 ]
 
 interface Props {

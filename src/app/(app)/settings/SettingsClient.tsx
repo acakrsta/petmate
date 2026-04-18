@@ -33,9 +33,12 @@ export function SettingsClient({ profile }: Props) {
     if (!file || !profile) return
     setUploading(true)
     const supabase = createClient()
-    const path = `${profile.id}.${file.name.split(".").pop()}`
-    const { data, error } = await supabase.storage.from("avatars").upload(path, file, { upsert: true })
-    if (!error && data) {
+    const ext = file.name.split(".").pop()
+    const path = `${profile.id}-${Date.now()}.${ext}`
+    const { data, error } = await supabase.storage.from("avatars").upload(path, file, { upsert: false })
+    if (error) {
+      setError(`Upload greška: ${error.message}`)
+    } else if (data) {
       const { data: { publicUrl } } = supabase.storage.from("avatars").getPublicUrl(data.path)
       setAvatarUrl(publicUrl)
     }
