@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Heart, MessageCircle, Map, Truck, Star, Plus } from "lucide-react"
+import { Heart, MessageCircle, Map, Truck, Star, Plus, ShieldCheck } from "lucide-react"
 import { getInitials, formatRelativeTime } from "@/lib/utils"
 
 export const metadata = { title: "Dashboard — PetMate" }
@@ -66,6 +66,24 @@ export default async function DashboardPage() {
           </p>
         </div>
       </div>
+
+      {/* Admin shortcut */}
+      {profile?.is_admin && (
+        <Link href="/admin">
+          <Card className="border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950/30 hover:shadow-md transition-shadow cursor-pointer">
+            <CardContent className="p-4 flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-amber-100 dark:bg-amber-900/50 shrink-0">
+                <ShieldCheck className="h-5 w-5 text-amber-700 dark:text-amber-400" />
+              </div>
+              <div className="flex-1">
+                <p className="font-semibold text-amber-900 dark:text-amber-300 text-sm">Admin panel</p>
+                <p className="text-xs text-amber-700 dark:text-amber-500">Upravljaj korisnicima, prijavama i sadržajem</p>
+              </div>
+              <ShieldCheck className="h-4 w-4 text-amber-400 opacity-50" />
+            </CardContent>
+          </Card>
+        </Link>
+      )}
 
       {/* Quick Actions */}
       <div>
