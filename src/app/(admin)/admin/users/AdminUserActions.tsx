@@ -1,8 +1,10 @@
 "use client"
+
 import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
+import { Trash2 } from "lucide-react"
 
 interface Props {
   userId: string
@@ -32,13 +34,32 @@ export function AdminUserActions({ userId, isPremium, isAdmin }: Props) {
     setLoading(false)
   }
 
+  async function deleteUser() {
+    if (!confirm("Da li si siguran da želiš da obrišeš ovog korisnika? Ova akcija je nepovratna.")) return
+    setLoading(true)
+    const supabase = createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase.from("profiles") as any).delete().eq("id", userId)
+    router.refresh()
+    setLoading(false)
+  }
+
   return (
-    <div className="flex gap-2 shrink-0">
-      <Button size="sm" variant="outline" onClick={togglePremium} disabled={loading}>
+    <div className="flex gap-1.5 shrink-0 flex-wrap justify-end">
+      <Button size="sm" variant="outline" onClick={togglePremium} disabled={loading} className="text-xs h-8">
         {isPremium ? "Ukloni Premium" : "Daj Premium"}
       </Button>
-      <Button size="sm" variant="ghost" onClick={toggleAdmin} disabled={loading}>
+      <Button size="sm" variant="ghost" onClick={toggleAdmin} disabled={loading} className="text-xs h-8">
         {isAdmin ? "Ukloni Admin" : "Daj Admin"}
+      </Button>
+      <Button
+        size="sm"
+        variant="ghost"
+        onClick={deleteUser}
+        disabled={loading}
+        className="text-xs h-8 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
+      >
+        <Trash2 className="h-3.5 w-3.5" />
       </Button>
     </div>
   )
