@@ -19,7 +19,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="flex min-h-screen bg-stone-50 dark:bg-stone-950">
       <AdminSidebar pendingReports={pendingReports ?? 0} />
-      <main className="flex-1 p-6 overflow-auto">{children}</main>
+      <main className="flex-1 overflow-auto pt-14 md:pt-0 p-4 md:p-6">{children}</main>
     </div>
   )
 }

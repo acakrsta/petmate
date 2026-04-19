@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getInitials, formatDate } from "@/lib/utils"
 import { AdminPagination } from "../AdminPagination"
-import { Heart, Search } from "lucide-react"
+import { Heart } from "lucide-react"
 import { Suspense } from "react"
 import { MatchSearchFilter } from "./MatchSearchFilter"
 
@@ -34,7 +34,7 @@ export default async function AdminMatchesPage({ searchParams }: PageProps) {
     .select("*", { count: "exact", head: true })
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let query = (supabase.from("matches") as any)
+  const query = (supabase.from("matches") as any)
     .select(`
       id,
       created_at,
@@ -84,46 +84,48 @@ export default async function AdminMatchesPage({ searchParams }: PageProps) {
         <div className="space-y-2">
           {matches.map((match) => (
             <Card key={match.id} className="border-stone-200 dark:border-stone-800">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-4">
-                  <div className="flex-1 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <Avatar className="h-8 w-8 shrink-0">
-                        <AvatarImage src={match.user1?.avatar_url ?? ""} />
-                        <AvatarFallback className="text-xs">
-                          {getInitials(match.user1?.full_name ?? match.user1?.email ?? "?")}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium text-stone-900 dark:text-white truncate">
-                          {match.user1?.full_name ?? match.user1?.email ?? "N/A"}
-                        </p>
-                        <p className="text-xs text-stone-400 truncate">
-                          {match.pet1?.name} · {match.pet1?.species}
-                        </p>
-                      </div>
+              <CardContent className="p-3 sm:p-4">
+                {/* Mobile: vertically stacked | Desktop: 3-column grid */}
+                <div className="flex flex-col sm:grid sm:grid-cols-[1fr_auto_1fr] sm:items-center gap-2 sm:gap-3">
+                  {/* User 1 */}
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Avatar className="h-8 w-8 shrink-0">
+                      <AvatarImage src={match.user1?.avatar_url ?? ""} />
+                      <AvatarFallback className="text-xs">
+                        {getInitials(match.user1?.full_name ?? match.user1?.email ?? "?")}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-stone-900 dark:text-white truncate">
+                        {match.user1?.full_name ?? match.user1?.email ?? "N/A"}
+                      </p>
+                      <p className="text-xs text-stone-400 truncate">
+                        {match.pet1?.name} · {match.pet1?.species}
+                      </p>
                     </div>
+                  </div>
 
-                    <div className="flex flex-col items-center gap-0.5 shrink-0">
-                      <Heart className="h-4 w-4 text-pink-500 fill-pink-500" />
-                      <span className="text-xs text-stone-400">{formatDate(match.created_at)}</span>
-                    </div>
+                  {/* Center icon + date */}
+                  <div className="flex items-center gap-2 sm:flex-col sm:gap-0.5 shrink-0 sm:px-1">
+                    <Heart className="h-4 w-4 text-pink-500 fill-pink-500" />
+                    <span className="text-xs text-stone-400">{formatDate(match.created_at)}</span>
+                  </div>
 
-                    <div className="flex items-center gap-2 justify-end min-w-0">
-                      <div className="min-w-0 text-right">
-                        <p className="text-sm font-medium text-stone-900 dark:text-white truncate">
-                          {match.user2?.full_name ?? match.user2?.email ?? "N/A"}
-                        </p>
-                        <p className="text-xs text-stone-400 truncate">
-                          {match.pet2?.name} · {match.pet2?.species}
-                        </p>
-                      </div>
-                      <Avatar className="h-8 w-8 shrink-0">
-                        <AvatarImage src={match.user2?.avatar_url ?? ""} />
-                        <AvatarFallback className="text-xs">
-                          {getInitials(match.user2?.full_name ?? match.user2?.email ?? "?")}
-                        </AvatarFallback>
-                      </Avatar>
+                  {/* User 2 */}
+                  <div className="flex items-center gap-2 sm:justify-end min-w-0">
+                    <Avatar className="h-8 w-8 shrink-0">
+                      <AvatarImage src={match.user2?.avatar_url ?? ""} />
+                      <AvatarFallback className="text-xs">
+                        {getInitials(match.user2?.full_name ?? match.user2?.email ?? "?")}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="min-w-0 sm:text-right">
+                      <p className="text-sm font-medium text-stone-900 dark:text-white truncate">
+                        {match.user2?.full_name ?? match.user2?.email ?? "N/A"}
+                      </p>
+                      <p className="text-xs text-stone-400 truncate">
+                        {match.pet2?.name} · {match.pet2?.species}
+                      </p>
                     </div>
                   </div>
                 </div>

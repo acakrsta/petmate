@@ -35,11 +35,11 @@ export function AdminPagination({ page, total, pageSize }: Props) {
   }
 
   return (
-    <div className="flex items-center justify-between pt-4">
-      <p className="text-sm text-stone-500">
-        Stranica {page} od {totalPages} ({total.toLocaleString("sr-RS")} ukupno)
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-2 pt-4">
+      <p className="text-xs sm:text-sm text-stone-500 order-2 sm:order-1">
+        Str. {page}/{totalPages} · {total.toLocaleString("sr-RS")} ukupno
       </p>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 order-1 sm:order-2">
         <Button
           size="sm"
           variant="outline"
@@ -51,7 +51,7 @@ export function AdminPagination({ page, total, pageSize }: Props) {
         </Button>
         {pages.map((p, i) =>
           p === "..." ? (
-            <span key={`dots-${i}`} className="px-2 text-stone-400 text-sm">…</span>
+            <span key={`dots-${i}`} className="px-1 text-stone-400 text-sm">…</span>
           ) : (
             <Button
               key={p}

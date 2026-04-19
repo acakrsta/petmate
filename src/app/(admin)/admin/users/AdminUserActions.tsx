@@ -45,12 +45,12 @@ export function AdminUserActions({ userId, isPremium, isAdmin }: Props) {
   }
 
   return (
-    <div className="flex gap-1.5 shrink-0 flex-wrap justify-end">
-      <Button size="sm" variant="outline" onClick={togglePremium} disabled={loading} className="text-xs h-8">
-        {isPremium ? "Ukloni Premium" : "Daj Premium"}
+    <div className="flex flex-col sm:flex-row gap-1 shrink-0">
+      <Button size="sm" variant="outline" onClick={togglePremium} disabled={loading} className="text-xs h-8 whitespace-nowrap">
+        {isPremium ? "- Premium" : "+ Premium"}
       </Button>
-      <Button size="sm" variant="ghost" onClick={toggleAdmin} disabled={loading} className="text-xs h-8">
-        {isAdmin ? "Ukloni Admin" : "Daj Admin"}
+      <Button size="sm" variant="ghost" onClick={toggleAdmin} disabled={loading} className="text-xs h-8 whitespace-nowrap">
+        {isAdmin ? "- Admin" : "+ Admin"}
       </Button>
       <Button
         size="sm"
